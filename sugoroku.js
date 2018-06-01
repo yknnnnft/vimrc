@@ -14,7 +14,7 @@
 // starts with one dice.
 // 1. Acquire one more dice usable from then on if getting a total point not larger than 3
 // 2. The dice with a point of not smaller than 5 will be no more usable.
-// 3. You have at least one dice (The dice getting a point not smaller than 5 will not be removed if it is only dice at hand).
+// 3. You have at least one dice (The dice getting a point not smaller than 5 will not be removed if it is the only dice at hand).
 //
 // Special rule of the board:
 // 1. skip to 11 if stop at 7
