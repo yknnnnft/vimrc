@@ -45,8 +45,6 @@ set guicursor+=i:block-iCursor-blinkwait300-blinkon400-blinkoff550            " 
 set incsearch
 set clipboard+=unnamedplus
 let cobol_legacy_code=1
-let g:prettier#config#tab_width=4                                             " number of spaces per indentation level
-let g:prettier#config#trailing_comma = 'none'
 if has('multi_lang')
     language C
 endif
@@ -119,6 +117,8 @@ endif
 Plugin 'yknnnnft/vim-monokai'
 " vim-prettier
 Plugin 'prettier/vim-prettier'
+let g:prettier#config#tab_width=4                                             " number of spaces per indentation level
+let g:prettier#config#trailing_comma = 'none'
 " vim-go
 Plugin 'fatih/vim-go'
 call vundle#end()                                                             " required
