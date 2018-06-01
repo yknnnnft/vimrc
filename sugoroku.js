@@ -33,9 +33,8 @@
 // start -> 1 -> 2,1 -> 1,1,1 -> 3,1,1,1 -> 6,6,6,6
 // ===================================
 
-
-var DICE_MAX = 6;
-var THROW_COUNT = 5;
+const DICE_MAX = 6;
+const THROW_COUNT = 5;
 // var MAX_STEP = 40;
 
 class Board {
@@ -186,8 +185,22 @@ class HistoryQuizB extends History {
     }
 }
 
+class Report {
+    constructor(result, title) {
+        this.result = result;
+        this.title = title;
+    }
+
+    report() {
+        console.log(`================${this.title}=============`);
+        console.log(`longest step: ${this.result.longestStep} steps with a history`);
+        console.log(this.result.longestHistory);
+        console.log('===================================');
+    }
+}
+
 function runHistory(history) {
-    var result = {};
+    let result = {};
     result.longestStep = 0;
     do {
         let step = board.runHistory(history.getHistory());
@@ -202,19 +215,13 @@ function runHistory(history) {
     return result;
 }
 
-var board = new Board();
-var result = {};
+const board = new Board();
 
 var historyA = new HistoryQuizA();
-result = runHistory(historyA);
-console.log('================Quiz 1=============');
-console.log(`longest step: ${result.longestStep} steps with a history`);
-console.log(result.longestHistory);
-console.log('===================================');
+const reportA = new Report(runHistory(historyA), 'Quiz 1');
 
 var historyB = new HistoryQuizB();
-result = runHistory(historyB);
-console.log('================Quiz 2=============');
-console.log(`longest step: ${result.longestStep} steps with a history`);
-console.log(result.longestHistory);
-console.log('===================================');
+const reportB = new Report(runHistory(historyB), 'Quiz 2');
+
+reportA.report();
+reportB.report();
