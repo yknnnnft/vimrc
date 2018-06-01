@@ -6,7 +6,7 @@ The villagers may be a liar or an honest,
 which has no relation of their being an wolfman or a human.  
 - villager A: "C is an wolfman"
 - villager B: "I am not an wolfman"
-- villager C: "There are more than 2 liars among us."  
+- villager C: "There are no less than 2 liars among us."  
 
 Solve the truth.
 
