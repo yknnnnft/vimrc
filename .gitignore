@@ -1,2 +1,7 @@
-*.swp
-*.swo
+# ignore all
+*
+*/
+
+#allow any
+!.gitignore
+!.vimrc
