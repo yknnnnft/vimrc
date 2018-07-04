@@ -35,6 +35,8 @@ set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set iminsert=0
 set imsearch=-1
 set shortmess=atI
+set cmdheight=1
+set nomore
 set go=
 set novisualbell
 set nowrap
@@ -83,6 +85,11 @@ let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_max_files=0
+let g:ctrlp_working_path_mode='w'
+let g:ctrlp_brief_prompt=1
+let g:ctrlp_by_filename=1
+let g:ctrlp_custom_ignore='node_modules\|build'
 " YouCompleteMe
 Plugin 'Valloric/YouCompleteMe'
 let g:ycm_global_ycm_extra_conf = $HOME
@@ -281,7 +288,7 @@ inoremap ` ``<LEFT>
 inoremap {<CR> {}<LEFT><CR><ESC>O
 inoremap {<S-CR> {1<ESC>c$}<LEFT><CR><ESC>O<C-r>"<ESC>^xA
 " add a null line
-nnoremap <CR> o<ESC>
+" nnoremap <CR> o<ESC>
 " del a char and move backward
 nnoremap <BS> xl
 " moving current line upward/downward
