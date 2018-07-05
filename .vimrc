@@ -45,6 +45,7 @@ set splitright
 set guicursor=n:block-blinkon0                                                " guiCursor = all-mode: block - blink on Interval 0
 set guicursor+=i:block-iCursor-blinkwait300-blinkon400-blinkoff550            " guiCursor = all-mode: block - blink on Interval 0
 set incsearch
+set mouse=n                                                                   " enable mouse in NORMAL mode
 set clipboard+=unnamedplus
 let cobol_legacy_code=1
 if has('multi_lang')
@@ -124,7 +125,7 @@ endif
 Plugin 'yknnnnft/vim-monokai'
 " vim-prettier
 Plugin 'prettier/vim-prettier'
-let g:prettier#config#tab_width=4                                             " number of spaces per indentation level
+let g:prettier#config#tab_width = 4                                             " number of spaces per indentation level
 let g:prettier#config#trailing_comma = 'none'
 " vim-go
 Plugin 'fatih/vim-go'
@@ -301,8 +302,6 @@ nnoremap <leader>n :cnext<CR>
 nnoremap <leader>N :cprevious<CR>
 " set current working directory
 nnoremap <leader>pwd :lcd %:p:h<CR>
-" call python3
-nnoremap <leader>py :w<CR>:term python3 %<CR>
 nnoremap <leader>term :term<CR>
 " easy motion search motion
 nmap <leader><leader>2f <Plug>(easymotion-f2)
@@ -330,6 +329,8 @@ nnoremap <leader>tc :tabc<CR>
 nnoremap <leader>te :tabe<CR>
 " QuickRun
 nnoremap <leader>kb :QuickRun<CR>
+" call python3
+autocmd FileType python nnoremap <buffer> <leader>kb :w<CR>:term python3 %<CR>
 " Toggle Project window
 nmap <silent><leader>P :call ToggleProjWFW()<CR>
 " YouCompleteMe jump
