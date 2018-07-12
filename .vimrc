@@ -54,6 +54,9 @@ endif
 if has('win32')
     autocmd GUIEnter * simalt ~x                                              " full-screen mode
 endif
+if &term =~ '^xterm\|rxvt'
+    let &t_EI .= "\<Esc>[2 q"
+endif
 
 
 
