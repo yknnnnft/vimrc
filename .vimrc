@@ -48,6 +48,10 @@ set incsearch
 set mouse=n                                                                   " enable mouse in NORMAL mode
 set clipboard+=unnamedplus
 let cobol_legacy_code=1
+" disable beep on ESC in normal mode
+set vb
+" disable screen flash on beep
+set t_vb=
 if has('multi_lang')
     language C
 endif
