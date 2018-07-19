@@ -59,9 +59,10 @@ if has('win32')
     autocmd GUIEnter * simalt ~x                                              " full-screen mode
 endif
 if &term =~ '^xterm\|rxvt'
-    let &t_EI .= "\<Esc>[2 q"
+    let &t_EI .= "\<Esc>[2 q"                                                 " disable blink of cursor in vim
 endif
 
+autocmd QuickFixCmdPost vimgrep cwindow                                       " always add '| cw' option when executing vimgrep
 
 
 
