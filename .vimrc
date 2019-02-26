@@ -38,7 +38,6 @@ set shortmess=atI
 set cmdheight=1
 set nomore
 set go=
-set novisualbell
 set nowrap
 set number
 set splitright
@@ -46,10 +45,10 @@ set guicursor=n:block-blinkon0                                                " 
 set guicursor+=i:block-iCursor-blinkwait300-blinkon400-blinkoff550            " guiCursor = all-mode: block - blink on Interval 0
 set incsearch
 set mouse=n                                                                   " enable mouse in NORMAL mode
-set clipboard+=unnamedplus
+set clipboard+=unnamed
 let cobol_legacy_code=1
 " disable beep on ESC in normal mode
-set vb
+set visualbell
 " disable screen flash on beep
 set t_vb=
 if has('multi_lang')
@@ -57,6 +56,8 @@ if has('multi_lang')
 endif
 if has('win32')
     autocmd GUIEnter * simalt ~x                                              " full-screen mode
+    autocmd GUIEnter * set vb t_vb=
+    set clipboard=
 endif
 if &term =~ '^xterm\|rxvt'
     let &t_EI .= "\<Esc>[2 q"                                                 " disable blink of cursor in vim
@@ -320,10 +321,10 @@ nmap <leader><leader>nF <Plug>(easymotion-Fn)
 nmap <leader><leader>ns <Plug>(easymotion-sn)
 nmap <leader><leader>l <Plug>(easymotion-wl)
 nmap <leader><leader>h <Plug>(easymotion-bl)
-map f <Plug>(easymotion-fl)
-map t <Plug>(easymotion-tl)
-map F <Plug>(easymotion-Fl)
-map T <Plug>(easymotion-Tl)
+map <leader>f <Plug>(easymotion-fl)
+map <leader>t <Plug>(easymotion-tl)
+map <leader>F <Plug>(easymotion-Fl)
+map <leader>T <Plug>(easymotion-Tl)
 " highlight search automaticlly
 nnoremap / :se hlsearch<CR>/
 nnoremap <silent><ESC><ESC> :se nohlsearch<CR><ESC>
@@ -338,7 +339,11 @@ nnoremap <leader>te :tabe<CR>
 " QuickRun
 nnoremap <leader>kb :QuickRun<CR>
 " call python3
-autocmd FileType python nnoremap <buffer> <leader>kb :w<CR>:term python3 %<CR>
+if has('win32')
+    autocmd FileType python nnoremap <buffer> <leader>kb :w<CR>:term python %<CR>
+else
+    autocmd FileType python nnoremap <buffer> <leader>kb :w<CR>:term python3 %<CR>
+endif
 " Toggle Project window
 nmap <silent><leader>P :call ToggleProjWFW()<CR>
 " YouCompleteMe jump
@@ -346,4 +351,3 @@ nnoremap <silent><leader>gd :YcmCompleter GoToDefinition<CR>
 nnoremap <silent><leader>gr :YcmCompleter GoToReferences<CR>
 " reopen closed window
 nnoremap <silent><leader>rw :vs#<CR>
-
