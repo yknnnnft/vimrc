@@ -38,6 +38,7 @@ set shortmess=atI
 set cmdheight=1
 set nomore
 set go=
+set novisualbell
 set nowrap
 set number
 set splitright
@@ -45,10 +46,10 @@ set guicursor=n:block-blinkon0                                                " 
 set guicursor+=i:block-iCursor-blinkwait300-blinkon400-blinkoff550            " guiCursor = all-mode: block - blink on Interval 0
 set incsearch
 set mouse=n                                                                   " enable mouse in NORMAL mode
-set clipboard+=unnamed
+set clipboard+=unnamedplus
 let cobol_legacy_code=1
 " disable beep on ESC in normal mode
-set visualbell
+set vb
 " disable screen flash on beep
 set t_vb=
 if has('multi_lang')
@@ -56,14 +57,11 @@ if has('multi_lang')
 endif
 if has('win32')
     autocmd GUIEnter * simalt ~x                                              " full-screen mode
-    autocmd GUIEnter * set vb t_vb=
-    set clipboard=
 endif
 if &term =~ '^xterm\|rxvt'
-    let &t_EI .= "\<Esc>[2 q"                                                 " disable blink of cursor in vim
+    let &t_EI .= "\<Esc>[2 q"
 endif
 
-autocmd QuickFixCmdPost vimgrep cwindow                                       " always add '| cw' option when executing vimgrep
 
 
 
@@ -101,7 +99,7 @@ let g:ctrlp_brief_prompt=1
 let g:ctrlp_by_filename=1
 let g:ctrlp_custom_ignore='node_modules\|build'
 " YouCompleteMe
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'ycm-core/YouCompleteMe'
 let g:ycm_global_ycm_extra_conf = $HOME
 if has('win32')
     let g:ycm_global_ycm_extra_conf .= '\vimfiles\bundle\YouCompleteMe\third_party\ycmd\cpp\ycm\.ycm_extra_conf.py'
@@ -121,7 +119,14 @@ Plugin 'tpope/vim-fugitive'
 " Plugin 'tyru/open-browser.vim'
 " vim-quickrun
 Plugin 'thinca/vim-quickrun'
-let g:quickrun_config={'_': {'split': 'botright 50vsplit'}}
+let g:quickrun_config={'_': {'split': 'botright 50vsplit'}, 'python': { 'command': 'python3'}}
+let g:quickrun_config['typescript'] = { 'type' : 'typescript/tsc' }
+let g:quickrun_config['typescript/tsc'] = {
+    \   'command': 'tsc',
+    \   'exec': ['%c --target esnext --module commonjs %o %s', 'node %s:r.js'],
+    \   'tempfile': '%{tempname()}.ts',
+    \   'hook/sweep/files': ['%S:p:r.js'],
+    \ }
 if has('win32')
     Plugin 'kkoenig/wimproved.vim'
     " autocmd GUIEnter * WToggleFullscreen                                             " full-screen mode
@@ -321,10 +326,10 @@ nmap <leader><leader>nF <Plug>(easymotion-Fn)
 nmap <leader><leader>ns <Plug>(easymotion-sn)
 nmap <leader><leader>l <Plug>(easymotion-wl)
 nmap <leader><leader>h <Plug>(easymotion-bl)
-map <leader>f <Plug>(easymotion-fl)
-map <leader>t <Plug>(easymotion-tl)
-map <leader>F <Plug>(easymotion-Fl)
-map <leader>T <Plug>(easymotion-Tl)
+map f <Plug>(easymotion-fl)
+map t <Plug>(easymotion-tl)
+map F <Plug>(easymotion-Fl)
+map T <Plug>(easymotion-Tl)
 " highlight search automaticlly
 nnoremap / :se hlsearch<CR>/
 nnoremap <silent><ESC><ESC> :se nohlsearch<CR><ESC>
@@ -339,11 +344,7 @@ nnoremap <leader>te :tabe<CR>
 " QuickRun
 nnoremap <leader>kb :QuickRun<CR>
 " call python3
-if has('win32')
-    autocmd FileType python nnoremap <buffer> <leader>kb :w<CR>:term python %<CR>
-else
-    autocmd FileType python nnoremap <buffer> <leader>kb :w<CR>:term python3 %<CR>
-endif
+" autocmd FileType python nnoremap <buffer> <leader>kb :w<CR>:term python3 %<CR>
 " Toggle Project window
 nmap <silent><leader>P :call ToggleProjWFW()<CR>
 " YouCompleteMe jump
@@ -351,3 +352,4 @@ nnoremap <silent><leader>gd :YcmCompleter GoToDefinition<CR>
 nnoremap <silent><leader>gr :YcmCompleter GoToReferences<CR>
 " reopen closed window
 nnoremap <silent><leader>rw :vs#<CR>
+
